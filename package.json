@@ -1,0 +1,33 @@
+{
+  "name": "nodejs-gmp-hometasks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "task1": "npx nodemon ./src/hometask-1/task1.ts",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnkitKatheriya/nodejs-gmp-hometasks.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^29.2.0",
+    "@types/node": "^18.16.3",
+    "jest": "^29.2.2",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  },
+  "bugs": {
+    "url": "https://github.com/AnkitKatheriya/nodejs-gmp-hometasks/issues"
+  },
+  "homepage": "https://github.com/AnkitKatheriya/nodejs-gmp-hometasks#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}

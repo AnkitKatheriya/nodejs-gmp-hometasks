@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "types": ["jest", "node"],
+    "lib": ["dom","es6", "es2017"]
+  }
+}
