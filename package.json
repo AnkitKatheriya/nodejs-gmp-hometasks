@@ -6,6 +6,7 @@
   "scripts": {
     "task1": "npx nodemon ./src/hometask-1/task1.ts",
     "task2": "npx nodemon ./src/hometask-1/task2.ts",
+    "task3": "npx nodemon --exec babel-node ./src/hometask-1/task3.ts --extensions .ts",
     "build": "tsc",
     "test": "jest"
   },
@@ -30,6 +31,11 @@
   },
   "homepage": "https://github.com/AnkitKatheriya/nodejs-gmp-hometasks#readme",
   "devDependencies": {
+    "@babel/cli": "^7.21.5",
+    "@babel/core": "^7.21.8",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.21.5",
+    "@babel/preset-typescript": "^7.21.5",
     "nodemon": "^2.0.22"
   }
 }

@@ -3,12 +3,9 @@
 const csvtojson = require('csvtojson')
 const paths = require('./constants/paths')
 const fs = require('fs')
+const errLogger = require('./utils/utils')
 
 const logger = fs.createWriteStream(paths.TEXT_FILE_PATH)
-
-const errorLogger = (errorMsg) => {
-    console.log(errorMsg)
-}
 
 const convertCSVtoJSONFile = async () => {
     fs.createReadStream(paths.CSV_FILE_PATH)
@@ -22,7 +19,7 @@ const convertCSVtoJSONFile = async () => {
             }
             logger.write(JSON.stringify(transformedData) + "\r\n")
         })
-        .on('error', errorLogger);
+        .on('error', errLogger);
 }
 
 convertCSVtoJSONFile()
