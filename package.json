@@ -1,41 +1,42 @@
 {
-  "name": "nodejs-gmp-hometasks",
+  "name": "hometask2",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "task1": "npx nodemon ./src/hometask-1/task1.ts",
-    "task2": "npx nodemon ./src/hometask-1/task2.ts",
-    "task3": "npx nodemon --exec babel-node ./src/hometask-1/task3.ts --extensions .ts",
+    "start": "npx nodemon ./src/index.ts",
     "build": "tsc",
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AnkitKatheriya/nodejs-gmp-hometasks.git"
+    "test": "jest",
+    "lint": "eslint . --ext .ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@types/jest": "^29.2.0",
-    "@types/node": "^18.16.3",
-    "csvtojson": "^2.0.10",
-    "jest": "^29.2.2",
-    "ts-jest": "^29.0.3",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.8.4"
-  },
-  "bugs": {
-    "url": "https://github.com/AnkitKatheriya/nodejs-gmp-hometasks/issues"
-  },
-  "homepage": "https://github.com/AnkitKatheriya/nodejs-gmp-hometasks#readme",
   "devDependencies": {
     "@babel/cli": "^7.21.5",
     "@babel/core": "^7.21.8",
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.21.5",
     "@babel/preset-typescript": "^7.21.5",
-    "nodemon": "^2.0.22"
+    "@types/jest": "^29.5.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.6",
+    "@typescript-eslint/parser": "^5.59.6",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.41.0",
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22",
+    "ts-jest": "^29.1.0"
+  },
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "@types/node": "^20.2.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-joi-validation": "^5.0.1",
+    "http-status-codes": "^2.2.0",
+    "pg": "^8.11.0",
+    "sequelize": "^6.32.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
   }
 }
