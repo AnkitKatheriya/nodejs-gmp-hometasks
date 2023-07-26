@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const config = require('../config/dbConfig')
+import config from "../config/dbConfig"
 
 const sequelize = new Sequelize(config.database, config.userName, config.password, {
     host: config.host,
@@ -9,7 +9,7 @@ const sequelize = new Sequelize(config.database, config.userName, config.passwor
     dialectOptions: config.dialectOptions
 })
 
-sequelize.authenticate().then(
+const startConnection = sequelize.authenticate().then(
     success => {
         console.log('success', success)
     },
@@ -18,4 +18,4 @@ sequelize.authenticate().then(
     }
 )
 
-module.exports = sequelize
+export default startConnection

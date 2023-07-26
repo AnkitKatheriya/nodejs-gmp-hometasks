@@ -13,7 +13,7 @@ const queryParamSchema = Joi.object({
     query: Joi.string().required()
 })
 
-module.exports = {
+export {
     userSchema,
     queryParamSchema
 }
