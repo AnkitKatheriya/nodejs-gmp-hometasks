@@ -14,7 +14,7 @@ class UserController {
     getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { loginSubstring, limit } = req.body
-            const autoSuggestedUsers = this.userService.findAll(loginSubstring, limit)
+            const autoSuggestedUsers = await this.userService.findAll(loginSubstring, limit)
             res.status(HttpStatus.OK).send({ data: autoSuggestedUsers })
         } catch(error) {
             next(error)
@@ -73,7 +73,14 @@ class UserController {
         }
     }
 
-    
+    createBulkUsers = async(req: Request, res: Response, next: NextFunction) => {
+        try {
+            await this.userService.createBulkUsers()
+        } catch(error) {
+            console.log('\n\n\n@@@@@error\n', error)
+            next(error)
+        }
+    }
 }
 
 export {

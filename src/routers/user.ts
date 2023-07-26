@@ -16,3 +16,5 @@ userRouter.put('/:id', userController.updateUser)
 userRouter.delete('/:id', userController.deleteUser)
 
 userRouter.get('/auto-suggest', userController.getAllUsers)
+
+userRouter.get('/insert-users-data', userController.createBulkUsers)

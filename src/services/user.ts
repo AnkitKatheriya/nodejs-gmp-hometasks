@@ -1,4 +1,4 @@
-import { UserModel } from "../models";
+import { User } from "../types/User";
 import { UserDataAccessor } from "../data-access";
 
 class UserService {
@@ -7,29 +7,33 @@ class UserService {
         this.dataAccessor = dataAccerror
     }
 
-    create(user: UserModel): Promise<UserModel> {
+    create(user: User): Promise<User> {
         return this.dataAccessor.create(user)
     }
 
-    findAll(login?: string, limit?: number) : Promise<UserModel[]> {
+    findAll(login?: string, limit?: number) : Promise<User[]> {
         return this.dataAccessor.findAll(login, limit)
     }
 
-    findByid(id: string) : Promise<UserModel> {
+    findByid(id: string) : Promise<User> {
         return this.dataAccessor.findById(id)
     }
 
-    update(id: string, user: UserModel) {
+    update(id: string, user: User) {
         const { login, password, age } = user
         return this.dataAccessor.update(id, {
             login,
             password,
             age,
-        } as UserModel)
+        } as User)
     }
 
     delete(id: string) {
         return this.dataAccessor.delete(id)
+    }
+
+    createBulkUsers() {
+        return this.dataAccessor.bulkUserCreate()
     }
 }
 
