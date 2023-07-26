@@ -1,4 +1,4 @@
-import { User } from "../types/User";
+import { User, Users } from "../types/User";
 import { UserDataAccessor } from "../data-access";
 
 class UserService {
@@ -11,7 +11,7 @@ class UserService {
         return this.dataAccessor.create(user)
     }
 
-    findAll(login?: string, limit?: number) : Promise<User[]> {
+    findAll(login?: string, limit?: number) : Promise<Users> {
         return this.dataAccessor.findAll(login, limit)
     }
 

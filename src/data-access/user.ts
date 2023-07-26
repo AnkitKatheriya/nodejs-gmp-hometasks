@@ -29,10 +29,11 @@ export class UserDataAccessor {
                 isDeleted: false,
                 ...(login && {
                     login: {
-                        [Op.like]: `%${login}%`
+                        [Op.iLike]: `%${login}%`
                     }
                 })
             },
+            order: ['login'],
             limit,
         })
     }

@@ -13,7 +13,7 @@ class UserController {
 
     getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { loginSubstring, limit } = req.body
+            const { loginSubstring, limit } = await req.body
             const autoSuggestedUsers = await this.userService.findAll(loginSubstring, limit)
             res.status(HttpStatus.OK).send({ data: autoSuggestedUsers })
         } catch(error) {

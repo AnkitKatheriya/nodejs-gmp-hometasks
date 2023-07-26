@@ -1,8 +1,8 @@
 import * as Joi from '@hapi/joi'
 import { ValidatedRequestSchema, ContainerTypes } from "express-joi-validation";
-import { UserModel } from '../models/user'
+import { User } from '../types/User';
 
-const userSchema = Joi.object<UserModel>({
+const userSchema = Joi.object<User>({
     id: Joi.string(),
     login: Joi.string().required(),
     password: Joi.string()
@@ -21,8 +21,13 @@ const userUpdateSchema = userSchema.fork(
 	(schema) => schema.optional(),
 )
 
+const userAutoSearchSchema = userSchema.fork(
+    ["loginSubstring", "limit"],
+    (schema) => schema.optional() 
+)
+
 interface IUserRequestSchema extends ValidatedRequestSchema {
-    [ContainerTypes.Body]: UserModel
+    [ContainerTypes.Body]: User
 }
 
 
@@ -30,5 +35,6 @@ export {
     userSchema,
     queryParamSchema,
     userUpdateSchema,
+    userAutoSearchSchema,
     IUserRequestSchema
 }
