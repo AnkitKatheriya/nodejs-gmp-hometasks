@@ -4,11 +4,11 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "start": "npx nodemon ./src/server.ts",
-    "build": "npx webpack --config webpack.config.js",
+    "start": "npx nodemon",
     "test": "jest",
     "lint": "eslint . --ext .ts",
-    "start:server": "node ./dist/main.js"
+    "webpack:build": "npx webpack --config webpack.config.js",
+    "webpack:start": "node ./dist/main.js"
   },
   "keywords": [],
   "author": "",
