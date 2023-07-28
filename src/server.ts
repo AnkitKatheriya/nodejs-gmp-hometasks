@@ -1,7 +1,7 @@
 import express from "express"
 import bodyParser from 'body-parser'
 // const validator = require('express-joi-validation').createValidator({})
-import { userRouter } from "./routers";
+import { userRouter, groupRouter } from "./routers";
 import { notFound, errorHandler } from "./middlewares";
 require('dotenv').config()
 
@@ -11,6 +11,7 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use('/api/users', userRouter)
+app.use('/api/groups', groupRouter)
 app.use(notFound)
 app.use(errorHandler)
 

@@ -1,5 +1,5 @@
 import { Op } from "sequelize"
-import { initUserModel } from "../models"
+import { initModels } from "../models"
 import { User, Users } from "../types/User"
 import { v4 as uuidv4 } from "uuid"
 import startConnection from "../middlewares"
@@ -8,8 +8,7 @@ import { mockUsers } from "../mocks/Users"
 export class UserDataAccessor {
     private readonly userModel;
     constructor() {
-        this.userModel = initUserModel(startConnection());
-        this.userModel.sync()
+        this.userModel = initModels(startConnection()).UserModel
     }
 
     create(user: User): Promise<User> {

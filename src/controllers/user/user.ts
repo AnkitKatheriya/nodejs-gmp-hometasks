@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction, response } from "express"
 import { ValidatedRequest } from "express-joi-validation"
-const HttpStatus = require('http-status-codes');
+import HttpStatus from "http-status-codes";
 import { IUserRequestSchema } from "../../schemas/UserSchema"
 // import { UserModel } from "../../models"
 import { UserService } from "../../services"
