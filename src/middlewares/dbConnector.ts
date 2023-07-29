@@ -7,7 +7,8 @@ const startConnection = () => {
         port: config.port,
         dialect: config.dialect,
         protocol: config.protocol,
-        dialectOptions: config.dialectOptions
+        dialectOptions: config.dialectOptions,
+        logging: config.databaseLoging,
     })
     
     connection.authenticate().then(

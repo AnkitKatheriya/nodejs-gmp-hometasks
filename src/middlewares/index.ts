@@ -1,3 +1,4 @@
 export  { default } from "./dbConnector"
 export * from "./errorHandler"
-export * from "./validators"
+export * from "./consoleLogger"
+export * from "./logger"

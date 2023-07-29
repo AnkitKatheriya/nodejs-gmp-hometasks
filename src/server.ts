@@ -1,8 +1,7 @@
 import express from "express"
 import bodyParser from 'body-parser'
-// const validator = require('express-joi-validation').createValidator({})
 import { userRouter, groupRouter } from "./routers";
-import { notFound, errorHandler } from "./middlewares";
+import { notFound, internalServerErrorHandler, consoleLogger, logger } from "./middlewares";
 require('dotenv').config()
 
 const app = express()
@@ -10,13 +9,23 @@ const app = express()
 // App configuration
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use(consoleLogger)
+app.use(notFound)
+app.use(internalServerErrorHandler)
 app.use('/api/users', userRouter)
 app.use('/api/groups', groupRouter)
-app.use(notFound)
-app.use(errorHandler)
+
+process.on("uncaughtException", (error, source) => {
+    logger.error(`${source}: ${ error}`);
+    process.exit(1)
+})
+
+process.on("unhandledRejection", (reason, promise) => {
+    logger.error("Unhandled rejection at: ", promise, "reason: ", reason)
+})
 
 const PORT = process.env.PORT || 8080
 
 app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`)
+    logger.info(`Listening on port ${PORT}`)
 })
