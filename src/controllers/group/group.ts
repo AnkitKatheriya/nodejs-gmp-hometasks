@@ -2,8 +2,9 @@ import { Request, Response, NextFunction } from "express"
 import HttpStatus from "http-status-codes"
 import { ValidatedRequest } from "express-joi-validation"
 
-import { IGroupRequestSchema } from "../../schemas/GroupSchema"
+import { ICreateGroupRequestSchema, IUpdateGroupRequestSchema } from "../../schemas"
 import { GroupService } from "../../services"
+import { logger } from "../../middlewares"
 
 class GroupController {
     private groupService: GroupService
@@ -21,20 +22,23 @@ class GroupController {
     }
 
     getGroupById = async (req: Request, res: Response, next: NextFunction) => {
-        try {
             const { id } = req.params
-            const user = await this.groupService.findByid(id)
-            if(!user){
-                const error = new Error('Group does not exists')
-                return next(error)
-            }
-            res.status(HttpStatus.OK).send({ data: user })
-        } catch(error) {
-            next(error)
-        }
+            await this.groupService.findByid(id).then((group) => {
+                if(!group) {
+                    res.status(HttpStatus.NOT_FOUND).json({
+                        error: 'Group does not exists'
+                    })
+                }
+                res.status(HttpStatus.OK).send({ data: group })
+            }).catch((err) => {
+                logger.error(err)
+                res.status(res.statusCode).json({
+                    error: err.message
+                })
+            })
     }
 
-    createGroup = async (req: ValidatedRequest<IGroupRequestSchema>, res: Response, next: NextFunction) => {
+    createGroup = async (req: ValidatedRequest<ICreateGroupRequestSchema>, res: Response, next: NextFunction) => {
         try {
             const newUser = await this.groupService.create(req.body);
             res.status(HttpStatus.CREATED).send({data: newUser, message: 'Group created successfully'});
@@ -43,7 +47,7 @@ class GroupController {
         }
     }
 
-    updateGroup = async (req: ValidatedRequest<IGroupRequestSchema>, res: Response, next: NextFunction) => {
+    updateGroup = async (req: ValidatedRequest<IUpdateGroupRequestSchema>, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             const updatedGroup = await this.groupService.update(id, req.body)

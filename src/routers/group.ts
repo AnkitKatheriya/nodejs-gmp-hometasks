@@ -1,7 +1,11 @@
 import { Router } from "express";
+import { createValidator } from "express-joi-validation";
+
 import { GroupController } from "../controllers";
+import { groupCreateSchema, groupUpdatedSchema, groupDeleteSchema } from "../schemas";
 
 export const groupRouter = Router()
+const validator = createValidator()
 
 const groupController = new GroupController()
 
@@ -11,9 +15,9 @@ groupRouter.get('/', groupController.getAllGropus)
 
 groupRouter.get('/:id', groupController.getGroupById)
 
-groupRouter.post('/', groupController.createGroup)
+groupRouter.post('/', validator.body(groupCreateSchema), groupController.createGroup)
 
-groupRouter.put('/:id', groupController.updateGroup)
+groupRouter.put('/:id', validator.body(groupUpdatedSchema), groupController.updateGroup)
 
 groupRouter.delete('/:id', groupController.deleteGroup)
 

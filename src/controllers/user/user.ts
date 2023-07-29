@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction, response } from "express"
+import { Request, Response, NextFunction } from "express"
 import { ValidatedRequest } from "express-joi-validation"
 import HttpStatus from "http-status-codes";
-import { IUserRequestSchema } from "../../schemas/UserSchema"
-// import { UserModel } from "../../models"
+import { ICreateUserRequestSchema, IAutoSearchUserSchema, IUpdateUserRequestSchema } from "../../schemas"
 import { UserService } from "../../services"
+import { logger } from "../../middlewares"
 
 class UserController {
     private userService: UserService
@@ -11,7 +11,7 @@ class UserController {
         this.userService = userService
     }
 
-    getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
+    getAllUsers = async (req: ValidatedRequest<IAutoSearchUserSchema>, res: Response, next: NextFunction) => {
         try {
             const { loginSubstring, limit } = await req.body
             const autoSuggestedUsers = await this.userService.findAll(loginSubstring, limit)
@@ -22,20 +22,23 @@ class UserController {
     }
 
     getUserById = async (req: Request, res: Response, next: NextFunction) => {
-        try {
             const { id } = req.params
-            const user = await this.userService.findByid(id)
-            if(!user){
-                const error = new Error('User does not exists')
-                return next(error)
-            }
-            res.status(HttpStatus.OK).send({ data: user })
-        } catch(error) {
-            next(error)
-        }
+            await this.userService.findByid(id).then(user => {
+                if(!user){
+                    res.status(HttpStatus.NOT_FOUND).json({
+                        error: 'User does not exists',
+                    })
+                }
+                res.status(HttpStatus.OK).send({ data: user })
+            }).catch((err) => {
+                logger.error(err)
+                res.status(res.statusCode).json({
+                    error: err.message
+                })
+            })
     }
 
-    createUser = async (req: ValidatedRequest<IUserRequestSchema>, res: Response, next: NextFunction) => {
+    createUser = async (req: ValidatedRequest<ICreateUserRequestSchema>, res: Response, next: NextFunction) => {
         try {
             const newUser = await this.userService.create(req.body);
             res.status(HttpStatus.CREATED).send({data: newUser, message: 'User created successfully'});
@@ -44,9 +47,8 @@ class UserController {
         }
     }
 
-    updateUser = async (req: ValidatedRequest<IUserRequestSchema>, res: Response, next: NextFunction) => {
+    updateUser = async (req: ValidatedRequest<IUpdateUserRequestSchema>, res: Response, next: NextFunction) => {
         try {
-            //need to complete logic
             const { id } = req.params
             const updatedUser = await this.userService.update(id, req.body)
             if(Object.keys(updatedUser).length < 1){

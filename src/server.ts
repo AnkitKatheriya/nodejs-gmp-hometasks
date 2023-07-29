@@ -1,7 +1,8 @@
 import express from "express"
 import bodyParser from 'body-parser'
+
 import { userRouter, groupRouter } from "./routers";
-import { notFound, internalServerErrorHandler, consoleLogger, logger } from "./middlewares";
+import { internalServerErrorHandler, consoleLogger, logger } from "./middlewares";
 require('dotenv').config()
 
 const app = express()
@@ -10,10 +11,14 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(consoleLogger)
-app.use(notFound)
+// app.use(notFound)
 app.use(internalServerErrorHandler)
 app.use('/api/users', userRouter)
 app.use('/api/groups', groupRouter)
+
+app.get('*', function(req, res){
+    res.status(404).send('Route not found');
+});
 
 process.on("uncaughtException", (error, source) => {
     logger.error(`${source}: ${ error}`);
