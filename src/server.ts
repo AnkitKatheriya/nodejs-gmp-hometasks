@@ -1,9 +1,12 @@
 import express from "express"
 import bodyParser from 'body-parser'
+import * as dotenv from 'dotenv'
 
-import { userRouter, groupRouter } from "./routers";
-import { internalServerErrorHandler, consoleLogger, logger } from "./middlewares";
-require('dotenv').config()
+import { userRouter, groupRouter, loginRouter } from "./routers";
+import { internalServerErrorHandler, consoleLogger, logger, authentication } from "./middlewares";
+import config from "./config/config";
+
+dotenv.config()
 
 const app = express()
 
@@ -13,8 +16,9 @@ app.use(bodyParser.json())
 app.use(consoleLogger)
 // app.use(notFound)
 app.use(internalServerErrorHandler)
-app.use('/api/users', userRouter)
-app.use('/api/groups', groupRouter)
+app.use('/api/login', loginRouter)
+app.use('/api/users', authentication, userRouter)
+app.use('/api/groups', authentication, groupRouter)
 
 app.get('*', function(req, res){
     res.status(404).send('Route not found');
@@ -29,7 +33,7 @@ process.on("unhandledRejection", (reason, promise) => {
     logger.error("Unhandled rejection at: ", promise, "reason: ", reason)
 })
 
-const PORT = process.env.PORT || 8080
+const PORT = config.application_port
 
 app.listen(PORT, () => {
     logger.info(`Listening on port ${PORT}`)

@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize')
-import config from "../config/dbConfig"
+import config from "../config/config"
+import { logger } from "./logger"
 
 const startConnection = () => {
+    logger.info(JSON.stringify(config))
     const connection = new Sequelize(config.database, config.userName, config.password, {
         host: config.host,
         port: config.port,
