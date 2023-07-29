@@ -5,7 +5,7 @@ import { verify } from "jsonwebtoken"
 import config from "../config/config";
 
 const authentication = (req:Request , res: Response, next: NextFunction) => {
-    const token = req.headers["x-access-token"] as string;
+    const token = req.headers["authorization"] as string;
     if(!token){
         res.status(HttpStatus.UNAUTHORIZED).send({
             isAuthenticated: false,
