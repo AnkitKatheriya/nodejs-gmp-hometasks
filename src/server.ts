@@ -38,3 +38,7 @@ const PORT = config.application_port
 app.listen(PORT, () => {
     logger.info(`Listening on port ${PORT}`)
 })
+
+export {
+    app
+}
