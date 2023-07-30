@@ -1,24 +1,30 @@
-import { Router } from "express";
-import { createValidator } from "express-joi-validation";
+import { Router } from 'express';
+import { createValidator } from 'express-joi-validation';
 
-import { GroupController } from "../controllers";
-import { groupCreateSchema, groupUpdatedSchema } from "../schemas";
+import { GroupController } from '../controllers';
+import { groupCreateSchema, groupUpdatedSchema } from '../schemas';
 
-export const groupRouter = Router()
-const validator = createValidator()
+export const groupRouter = Router();
+const validator = createValidator();
 
-const groupController = new GroupController()
+const groupController = new GroupController();
 
-groupRouter.post('/addUsersToGroup', groupController.addUsersToGroup)
+groupRouter.post('/addUsersToGroup', groupController.addUsersToGroup);
 
-groupRouter.get('/', groupController.getAllGropus)
+groupRouter.get('/', groupController.getAllGropus);
 
-groupRouter.get('/:id', groupController.getGroupById)
+groupRouter.get('/:id', groupController.getGroupById);
 
-groupRouter.post('/', validator.body(groupCreateSchema), groupController.createGroup)
+groupRouter.post(
+  '/',
+  validator.body(groupCreateSchema),
+  groupController.createGroup
+);
 
-groupRouter.put('/:id', validator.body(groupUpdatedSchema), groupController.updateGroup)
+groupRouter.put(
+  '/:id',
+  validator.body(groupUpdatedSchema),
+  groupController.updateGroup
+);
 
-groupRouter.delete('/:id', groupController.deleteGroup)
-
-
+groupRouter.delete('/:id', groupController.deleteGroup);
