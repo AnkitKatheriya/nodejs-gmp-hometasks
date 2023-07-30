@@ -1,10 +1,11 @@
-import { Sequelize, DataTypes } from "sequelize"
+import { Sequelize, DataTypes } from 'sequelize';
 
-export const initGroupModel = (connectionDb: Sequelize) => connectionDb.define('groups', {
+export const initGroupModel = (connectionDb: Sequelize) =>
+  connectionDb.define('groups', {
     id: {
-        type: DataTypes.UUID,
-        primaryKey: true,
+      type: DataTypes.UUID,
+      primaryKey: true,
     },
     name: DataTypes.STRING,
-    permissions: DataTypes.ARRAY(DataTypes.STRING)
-})
+    permissions: DataTypes.ARRAY(DataTypes.STRING),
+  });

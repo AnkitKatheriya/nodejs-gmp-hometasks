@@ -1,2 +1,2 @@
-export * from "./UserSchema"
-export * from "./GroupSchema"
+export * from './UserSchema';
+export * from './GroupSchema';
