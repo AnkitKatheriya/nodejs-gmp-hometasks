@@ -1,8 +1,8 @@
 import express from "express"
 import bodyParser from 'body-parser'
-// const validator = require('express-joi-validation').createValidator({})
 import { userRouter, groupRouter } from "./routers";
 import { notFound, errorHandler } from "./middlewares";
+/* eslint-disable @typescript-eslint/no-var-requires */ 
 require('dotenv').config()
 
 const app = express()

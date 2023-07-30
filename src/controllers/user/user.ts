@@ -1,8 +1,7 @@
-import { Request, Response, NextFunction, response } from "express"
+import { Request, Response, NextFunction } from "express"
 import { ValidatedRequest } from "express-joi-validation"
 import HttpStatus from "http-status-codes";
 import { ICreateUserRequestSchema, IAutoSearchUserSchema, IUpdateUserRequestSchema } from "../../schemas"
-// import { UserModel } from "../../models"
 import { UserService } from "../../services"
 
 class UserController {
@@ -46,7 +45,6 @@ class UserController {
 
     updateUser = async (req: ValidatedRequest<IUpdateUserRequestSchema>, res: Response, next: NextFunction) => {
         try {
-            //need to complete logic
             const { id } = req.params
             const updatedUser = await this.userService.update(id, req.body)
             if(Object.keys(updatedUser).length < 1){

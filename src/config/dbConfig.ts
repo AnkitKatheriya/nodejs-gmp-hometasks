@@ -18,7 +18,7 @@
 
 export = {
     host: 'localhost',
-    port: '5432',
+    port: 5432,
     database: 'postgres',
     userName: 'postgres',
     password: 'Postgresdb@23',
