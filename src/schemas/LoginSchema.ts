@@ -13,6 +13,7 @@ const getLoginSchema = loginSchema.fork(
     (schema) => schema.required() 
 )
 
+/* eslint-disable */
 interface IGetLoginSchema extends ValidatedRequestSchema {
     [ContainerTypes.Body]: {
         username: string,
