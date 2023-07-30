@@ -21,7 +21,7 @@ class UserController {
         }
     }
 
-    getUserById = async (req: Request, res: Response, next: NextFunction) => {
+    getUserById = async (req: Request, res: Response) => {
             const { id } = req.params
             await this.userService.findByid(id).then(user => {
                 if(!user){

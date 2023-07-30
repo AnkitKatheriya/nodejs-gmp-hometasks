@@ -21,7 +21,7 @@ class GroupController {
         }
     }
 
-    getGroupById = async (req: Request, res: Response, next: NextFunction) => {
+    getGroupById = async (req: Request, res: Response) => {
             const { id } = req.params
             await this.groupService.findByid(id).then((group) => {
                 if(!group) {
