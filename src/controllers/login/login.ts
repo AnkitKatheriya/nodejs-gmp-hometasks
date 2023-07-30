@@ -1,4 +1,4 @@
-import { NextFunction, Response } from "express"
+import { Response } from "express"
 import HttpStatus from "http-status-codes"
 import { sign } from "jsonwebtoken"
 
@@ -7,9 +7,10 @@ import { IGetLoginSchema } from "../../schemas/LoginSchema"
 import config from "../../config/config"
 
 class LoginController {
+    /* eslint-disable @typescript-eslint/no-empty-function  */
     constructor(){}
 
-    login = (req: ValidatedRequest<IGetLoginSchema>, res: Response, next: NextFunction) => {
+    login = (req: ValidatedRequest<IGetLoginSchema>, res: Response) => {
         const { username, password } = req.body
         if(!username || !password) {
             res.status(HttpStatus.UNAUTHORIZED).send({
