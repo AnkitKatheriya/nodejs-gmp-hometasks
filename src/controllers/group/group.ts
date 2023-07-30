@@ -21,20 +21,18 @@ class GroupController {
         }
     }
 
-    getGroupById = async (req: Request, res: Response) => {
+    getGroupById = async (req: Request, res: Response, next: NextFunction) => {
             const { id } = req.params
             await this.groupService.findByid(id).then((group) => {
                 if(!group) {
-                    res.status(HttpStatus.NOT_FOUND).json({
+                    res.status(HttpStatus.NOT_FOUND).send({
                         error: 'Group does not exists'
                     })
                 }
                 res.status(HttpStatus.OK).send({ data: group })
             }).catch((err) => {
                 logger.error(err)
-                res.status(res.statusCode).json({
-                    error: err.message
-                })
+                next(err)
             })
     }
 

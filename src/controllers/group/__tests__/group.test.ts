@@ -79,7 +79,7 @@ describe(GroupController.name, () => {
                 .expect(HttpStatus.NOT_FOUND, {
                     error: 'Group does not exists'
                 })
-            expect(response.body.data.isDeleted).toBeTruthy()
+            expect(response.body.data).toBeUndefined()
         })
     })
 })
