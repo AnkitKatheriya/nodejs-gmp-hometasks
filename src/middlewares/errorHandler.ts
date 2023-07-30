@@ -20,7 +20,7 @@ const internalServerErrorHandler = (err: Error, req: Request, res: Response, nex
             stack: err.stack
         });
     }
-    next()
+    next();
 }
 
 export {

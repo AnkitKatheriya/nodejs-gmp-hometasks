@@ -8,6 +8,9 @@ import config from "./config/config";
 
 dotenv.config()
 
+/* eslint-disable @typescript-eslint/no-var-requires */ 
+require('dotenv').config()
+
 const app = express()
 
 // App configuration
