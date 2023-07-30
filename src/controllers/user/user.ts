@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, response } from "express"
 import { ValidatedRequest } from "express-joi-validation"
 import HttpStatus from "http-status-codes";
-import { IUserRequestSchema } from "../../schemas/UserSchema"
+import { ICreateUserRequestSchema, IAutoSearchUserSchema, IUpdateUserRequestSchema } from "../../schemas"
 // import { UserModel } from "../../models"
 import { UserService } from "../../services"
 
@@ -11,7 +11,7 @@ class UserController {
         this.userService = userService
     }
 
-    getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
+    getAllUsers = async (req: ValidatedRequest<IAutoSearchUserSchema>, res: Response, next: NextFunction) => {
         try {
             const { loginSubstring, limit } = await req.body
             const autoSuggestedUsers = await this.userService.findAll(loginSubstring, limit)
@@ -35,7 +35,7 @@ class UserController {
         }
     }
 
-    createUser = async (req: ValidatedRequest<IUserRequestSchema>, res: Response, next: NextFunction) => {
+    createUser = async (req: ValidatedRequest<ICreateUserRequestSchema>, res: Response, next: NextFunction) => {
         try {
             const newUser = await this.userService.create(req.body);
             res.status(HttpStatus.CREATED).send({data: newUser, message: 'User created successfully'});
@@ -44,7 +44,7 @@ class UserController {
         }
     }
 
-    updateUser = async (req: ValidatedRequest<IUserRequestSchema>, res: Response, next: NextFunction) => {
+    updateUser = async (req: ValidatedRequest<IUpdateUserRequestSchema>, res: Response, next: NextFunction) => {
         try {
             //need to complete logic
             const { id } = req.params

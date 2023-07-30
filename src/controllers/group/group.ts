@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express"
 import HttpStatus from "http-status-codes"
 import { ValidatedRequest } from "express-joi-validation"
 
-import { IGroupRequestSchema } from "../../schemas/GroupSchema"
+import { ICreateGroupRequestSchema, IUpdateGroupRequestSchema } from "../../schemas"
 import { GroupService } from "../../services"
 
 class GroupController {
@@ -34,7 +34,7 @@ class GroupController {
         }
     }
 
-    createGroup = async (req: ValidatedRequest<IGroupRequestSchema>, res: Response, next: NextFunction) => {
+    createGroup = async (req: ValidatedRequest<ICreateGroupRequestSchema>, res: Response, next: NextFunction) => {
         try {
             const newUser = await this.groupService.create(req.body);
             res.status(HttpStatus.CREATED).send({data: newUser, message: 'Group created successfully'});
@@ -43,7 +43,7 @@ class GroupController {
         }
     }
 
-    updateGroup = async (req: ValidatedRequest<IGroupRequestSchema>, res: Response, next: NextFunction) => {
+    updateGroup = async (req: ValidatedRequest<IUpdateGroupRequestSchema>, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             const updatedGroup = await this.groupService.update(id, req.body)
