@@ -10,8 +10,8 @@ const getActualRequestDurationInMilliseconds = start => {
  };
 
 export const consoleLogger = (req: Request, res: Response, next: NextFunction) => {
-   let current_datetime = new Date();
-   let formatted_date =
+   const current_datetime = new Date();
+   const formatted_date =
     current_datetime.getFullYear() +
     "-" +
     (current_datetime.getMonth() + 1) +
@@ -23,14 +23,14 @@ export const consoleLogger = (req: Request, res: Response, next: NextFunction) =
     current_datetime.getMinutes() +
     ":" +
     current_datetime.getSeconds();
-   let method = req.method;
-   let url = req.url;
-   let status = res.statusCode;
+   const method = req.method;
+   const url = req.url;
+   const status = res.statusCode;
    const start = process.hrtime();
    const durationInMilliseconds = getActualRequestDurationInMilliseconds(start);
-   let reqParams = req.params;
-   let reqBody = req.body;
-   let log = `[${formatted_date}] ${method}:${url} ${status} params: ${JSON.stringify(reqParams)} body: ${JSON.stringify(reqBody)} ${durationInMilliseconds}ms`;
+   const reqParams = req.params;
+   const reqBody = req.body;
+   const log = `[${formatted_date}] ${method}:${url} ${status} params: ${JSON.stringify(reqParams)} body: ${JSON.stringify(reqBody)} ${durationInMilliseconds}ms`;
    console.log(CONSOLE_COLORS.FgCyan, log);
    next()
 }
