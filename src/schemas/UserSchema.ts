@@ -2,8 +2,8 @@ import * as Joi from '@hapi/joi'
 import { ValidatedRequestSchema, ContainerTypes } from "express-joi-validation";
 import { User } from '../types/User';
 
-const userSchema = Joi.object<User>({
-    id: Joi.string(),
+const userSchema = Joi.object<User>().options({ abortEarly: false }).keys({
+    id: Joi.string().optional(),
     login: Joi.string().required(),
     password: Joi.string()
                     .regex(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/)
@@ -16,18 +16,37 @@ const queryParamSchema = Joi.object({
     query: Joi.string().required()
 })
 
+const userCreateSchema = userSchema.fork(
+    ["login", "password", "age", "isDeleted"],
+	(schema) => schema.required(),
+)
+
 const userUpdateSchema = userSchema.fork(
     ["login", "password", "age", "isDeleted"],
-	(schema) => schema.optional(),
+	(schema) => schema.required(),
 )
 
-const userAutoSearchSchema = userSchema.fork(
-    ["loginSubstring", "limit"],
-    (schema) => schema.optional() 
-)
+const userAutoSearchSchema = Joi.object().keys({
+    loginSubstring: Joi.string(),
+    limit: Joi.number().integer().min(0).optional()
+})
 
-interface IUserRequestSchema extends ValidatedRequestSchema {
-    [ContainerTypes.Body]: User
+interface ICreateUserRequestSchema extends ValidatedRequestSchema {
+    [ContainerTypes.Body]: {
+        login: string,
+        password: string,
+        age: number,
+        isDeleted: boolean,
+    }
+}
+
+interface IUpdateUserRequestSchema extends ICreateUserRequestSchema {}
+
+interface IAutoSearchUserSchema extends ValidatedRequestSchema {
+    [ContainerTypes.Body]: {
+        loginSubstring: string,
+        limit: number,
+    }
 }
 
 
@@ -35,6 +54,9 @@ export {
     userSchema,
     queryParamSchema,
     userUpdateSchema,
+    userCreateSchema,
     userAutoSearchSchema,
-    IUserRequestSchema
+    ICreateUserRequestSchema,
+    IUpdateUserRequestSchema,
+    IAutoSearchUserSchema
 }
