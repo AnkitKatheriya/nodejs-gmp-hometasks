@@ -2,7 +2,7 @@ import { Router } from "express";
 import { createValidator } from "express-joi-validation";
 
 import { GroupController } from "../controllers";
-import { groupCreateSchema, groupUpdatedSchema, groupDeleteSchema } from "../schemas";
+import { groupCreateSchema, groupUpdatedSchema } from "../schemas";
 
 export const groupRouter = Router()
 const validator = createValidator()

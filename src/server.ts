@@ -3,6 +3,8 @@ import bodyParser from 'body-parser'
 
 import { userRouter, groupRouter } from "./routers";
 import { internalServerErrorHandler, consoleLogger, logger } from "./middlewares";
+
+/* eslint-disable @typescript-eslint/no-var-requires */ 
 require('dotenv').config()
 
 const app = express()

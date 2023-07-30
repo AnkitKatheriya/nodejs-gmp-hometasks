@@ -1,11 +1,11 @@
-const Sequelize = require('sequelize')
-import config from "../config/dbConfig"
+import { Sequelize, Dialect } from 'sequelize';
+import config from "../config/dbConfig";
 
 const startConnection = () => {
     const connection = new Sequelize(config.database, config.userName, config.password, {
         host: config.host,
         port: config.port,
-        dialect: config.dialect,
+        dialect: config.dialect as Dialect,
         protocol: config.protocol,
         dialectOptions: config.dialectOptions,
         logging: config.databaseLoging,
