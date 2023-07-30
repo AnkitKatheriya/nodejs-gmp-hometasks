@@ -23,6 +23,7 @@ const groupDeleteSchema = groupSchema.fork(
     (schema) => schema.required(),
 )
 
+/* eslint-disable */
 interface ICreateGroupRequestSchema extends ValidatedRequestSchema {
     [ContainerTypes.Body]: {
         name: string,
@@ -30,8 +31,10 @@ interface ICreateGroupRequestSchema extends ValidatedRequestSchema {
     }
 }
 
+/* eslint-disable */
 interface IUpdateGroupRequestSchema extends ICreateGroupRequestSchema {}
 
+/* eslint-disable */
 interface IDeleteGroupRequestSchema extends ValidatedRequestSchema {
     [ContainerTypes.Params]: {
         id: string

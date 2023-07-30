@@ -2,7 +2,7 @@ const { DB_PORT, DB_PWD, SECRET_KEY, APP_PORT } = process.env
 
 export = {
     host: 'localhost',
-    port: DB_PORT || '5432',
+    port: DB_PORT || 5432,
     database: 'postgres',
     userName: 'postgres',
     password: DB_PWD || 'Postgresdb@23',

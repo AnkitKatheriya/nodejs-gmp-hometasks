@@ -31,6 +31,7 @@ const userAutoSearchSchema = Joi.object().keys({
     limit: Joi.number().integer().min(0).optional()
 })
 
+/* eslint-disable */
 interface ICreateUserRequestSchema extends ValidatedRequestSchema {
     [ContainerTypes.Body]: {
         login: string,
@@ -40,8 +41,10 @@ interface ICreateUserRequestSchema extends ValidatedRequestSchema {
     }
 }
 
+/* eslint-disable */
 interface IUpdateUserRequestSchema extends ICreateUserRequestSchema {}
 
+/* eslint-disable */
 interface IAutoSearchUserSchema extends ValidatedRequestSchema {
     [ContainerTypes.Body]: {
         loginSubstring: string,
