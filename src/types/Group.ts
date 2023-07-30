@@ -1,15 +1,11 @@
-type Permission = 'READ' | 'WRITE' | 'DELETE' | 'SHARE'| 'UPLOAD_FILES';
+type Permission = 'READ' | 'WRITE' | 'DELETE' | 'SHARE' | 'UPLOAD_FILES';
 
 type Group = {
-    id?: string;
-    name: string;
-    permissions: Array<Permission>
-}
+  id?: string;
+  name: string;
+  permissions: Array<Permission>;
+};
 
-type Groups = Array<Group>
+type Groups = Array<Group>;
 
-export {
-    Permission,
-    Group,
-    Groups,
-}
+export { Permission, Group, Groups };
