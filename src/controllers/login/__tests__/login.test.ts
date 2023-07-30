@@ -1,4 +1,4 @@
-const request = require('supertest');
+import request from "supertest"
 import HttpStatus from "http-status-codes"
 
 import { LoginController } from "../../login/login";

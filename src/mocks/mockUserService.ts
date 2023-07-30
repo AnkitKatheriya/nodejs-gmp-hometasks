@@ -1,7 +1,6 @@
 import { User, Users } from "../types/User";
-
+/* eslint-disable */
 export class MockUserService {
-  constructor(){}
 	create(userModel: User): Promise<User> {
 		return Promise.resolve(userModel);
 	}

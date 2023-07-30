@@ -1,4 +1,4 @@
-const request = require('supertest');
+import request from "supertest"
 import HttpStatus from "http-status-codes"
 
 import { GroupController } from "../group";
@@ -53,7 +53,7 @@ describe(GroupController.name, () => {
             createdGroupId = response.body.data.id
         })
         it('should get group by id', async () => {
-            const response = await request(app)
+            await request(app)
                 .get(`/api/groups/${createdGroupId}`)
                 .set('authorization', token)
                 .expect(HttpStatus.OK)

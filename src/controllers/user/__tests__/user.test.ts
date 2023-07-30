@@ -1,4 +1,4 @@
-const request = require('supertest');
+import request from "supertest"
 import HttpStatus from "http-status-codes"
 
 import { UserController } from "../user";
@@ -63,6 +63,7 @@ describe(UserController.name, () => {
                 .set('authorization', token)
                 .send({ "login": "automated-user-1", "password": "Automateduser1", "age": 150, "isDeleted": false })
                 .expect(HttpStatus.BAD_REQUEST)
+            /* eslint-disable no-useless-escape */
             expect(response.error.text).toEqual('Error validating request body. \"age\" must be less than or equal to 130.')
         })
         it('should create user', async () => {
@@ -72,18 +73,17 @@ describe(UserController.name, () => {
                 .send({ "login": "automated-user-1", "password": "Automateduser1", "age": 45, "isDeleted": false })
                 .expect(HttpStatus.CREATED)
             expect(response.body).toEqual({ data: response.body.data, message: 'User created successfully' })
-            console.log('\n\n\n\nresponse', response.body)
             createdUserId = response.body.data.id
         })
         it('should search users by login string and limit', async () => {
-            const response = await request(app)
+            await request(app)
                 .get('/api/users/search')
                 .set('authorization', token)
                 .send({ "loginSubstring": "automated", "limit": 5 })
                 .expect(HttpStatus.OK)
         })
         it('should get a user by id', async () => {
-            const response = await request(app)
+            await request(app)
                 .get(`/api/users/${createdUserId}`)
                 .set('authorization', token)
                 .expect(HttpStatus.OK)
